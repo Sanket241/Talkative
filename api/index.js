@@ -4,6 +4,7 @@ import express from "express";
 import ConnectDb from './config/database.js';
 import cookieParser from "cookie-parser";
 import userRouter from "./routers/userRouter.js";
+import messageRouter from './routers/messageRouter.js'
 import cors from "cors";
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(cors())
 app.use(cookieParser());
 
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/message', messageRouter);
 
 
 
