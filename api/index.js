@@ -3,15 +3,21 @@ import dotenv from "dotenv";
 import express from "express";
 import ConnectDb from './config/database.js';
 import cookieParser from "cookie-parser";
+import userRouter from "./routers/userRouter.js";
 import cors from "cors";
 
 const app = express();
 
 const PORT = process.env.PORT || 9000;
 
-app.use(cors())
 app.use(express.json());
+app.use(cors())
 app.use(cookieParser());
+
+app.use('/api/v1/users', userRouter);
+
+
+
 
 app.listen(PORT,()=>{
     try {
