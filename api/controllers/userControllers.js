@@ -74,3 +74,23 @@ export const login = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 }
+
+export const logout = async (req, res) => {
+    try {
+        return res.status(200).cookie("token", "", {maxAge:1, httpOnly:true, sameSite:'strict'}).json({
+            message: "Logout successful",
+            success: true
+        });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}
+export const getOtherUsers = async (req, res) => {
+    try {
+        const loggedInUserId = req.id;
+        const otherUsers = await User.find({ _id: { $ne: loggedInUserId } }).select("-password");
+        return res.status(200).json(otherUsers);
+    } catch (error) {
+        console.log(error);
+    }
+}
